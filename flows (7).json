@@ -1,0 +1,195 @@
+[
+    {
+        "id": "9f5028afd0c6dc43",
+        "type": "tab",
+        "label": "Flow 1",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "daf7af17ee61c48e",
+        "type": "mqtt in",
+        "z": "9f5028afd0c6dc43",
+        "name": "",
+        "topic": "driversistic/driver1uid",
+        "qos": "2",
+        "datatype": "auto-detect",
+        "broker": "85c6b1c4f20148f6",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 120,
+        "y": 140,
+        "wires": [
+            [
+                "9243f8ec88c03c93",
+                "1c4511aa495010f3"
+            ]
+        ]
+    },
+    {
+        "id": "9243f8ec88c03c93",
+        "type": "debug",
+        "z": "9f5028afd0c6dc43",
+        "name": "debug 8",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 420,
+        "y": 100,
+        "wires": []
+    },
+    {
+        "id": "3ad409f3fecc6870",
+        "type": "change",
+        "z": "9f5028afd0c6dc43",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "storedValueB",
+                "pt": "flow",
+                "to": "payload",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 540,
+        "y": 340,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "1c4511aa495010f3",
+        "type": "function",
+        "z": "9f5028afd0c6dc43",
+        "name": "function 1",
+        "func": "var valueA = msg.payload;\nvar valueB = flow.get('storedValueB');\n\nif (valueA === valueB) {\n    msg.payload = true;\n} else {\n    msg.payload = false;\n}\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 460,
+        "y": 240,
+        "wires": [
+            [
+                "24b5b2e0e2b0db55",
+                "0d20a5653aae5c25"
+            ]
+        ]
+    },
+    {
+        "id": "24b5b2e0e2b0db55",
+        "type": "debug",
+        "z": "9f5028afd0c6dc43",
+        "name": "debug 10",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 620,
+        "y": 180,
+        "wires": []
+    },
+    {
+        "id": "0d20a5653aae5c25",
+        "type": "firebase-out",
+        "z": "9f5028afd0c6dc43",
+        "name": "",
+        "database": "0a3666da76c9f948",
+        "path": "/users/driver1/PoN",
+        "pathType": "str",
+        "priority": 1,
+        "queryType": "set",
+        "x": 710,
+        "y": 260,
+        "wires": []
+    },
+    {
+        "id": "75cc33dfb346b5db",
+        "type": "firebase-in",
+        "z": "9f5028afd0c6dc43",
+        "name": "",
+        "constraint": {},
+        "database": "0a3666da76c9f948",
+        "listenerType": "value",
+        "outputType": "auto",
+        "path": "users/driver1/rfid",
+        "useConstraint": false,
+        "x": 240,
+        "y": 340,
+        "wires": [
+            [
+                "c98ead8f34820d0c",
+                "3ad409f3fecc6870"
+            ]
+        ]
+    },
+    {
+        "id": "c98ead8f34820d0c",
+        "type": "debug",
+        "z": "9f5028afd0c6dc43",
+        "name": "debug 11",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 420,
+        "y": 400,
+        "wires": []
+    },
+    {
+        "id": "85c6b1c4f20148f6",
+        "type": "mqtt-broker",
+        "name": "",
+        "broker": "test.mosquitto.org",
+        "port": "1883",
+        "clientid": "",
+        "autoConnect": true,
+        "usetls": false,
+        "protocolVersion": "4",
+        "keepalive": "60",
+        "cleansession": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthPayload": "",
+        "birthMsg": {},
+        "closeTopic": "",
+        "closeQos": "0",
+        "closePayload": "",
+        "closeMsg": {},
+        "willTopic": "",
+        "willQos": "0",
+        "willPayload": "",
+        "willMsg": {},
+        "userProps": "",
+        "sessionExpiry": ""
+    },
+    {
+        "id": "0a3666da76c9f948",
+        "type": "database-config",
+        "name": "My Databasetest",
+        "authType": "privateKey",
+        "claims": {},
+        "createUser": false,
+        "useClaims": false
+    }
+]
